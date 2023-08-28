@@ -13,7 +13,7 @@
 <ol>
   <li>Склонируйте репозиторий:</li>
 </ol>
-<pre><code>git clone &lt;URL репозитория&gt;</code></pre>
+<pre><code>git clone https://github.com/Dani1Kruglov/avito-test-task</code></pre>
 <ol start="2">
   <li>Запустите контейнеры с БД и сервисом:</li>
 </ol>
