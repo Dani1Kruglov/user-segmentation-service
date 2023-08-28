@@ -1,0 +1,75 @@
+openapi: 3.0.0
+info:
+  title: Avito API
+  description: API для управления сегментами и пользователями
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /segments:
+    post:
+      summary: Создать сегмент
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                slug:
+                  type: string
+      responses:
+        '201':
+          description: Сегмент создан
+    delete:
+      summary: Удалить сегмент
+      parameters:
+        - in: query
+          name: slug
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Сегмент удален
+  /segments/users:
+    post:
+      summary: Добавить пользователя в сегмент
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                add_segments:
+                  type: array
+                  items:
+                    type: string
+                remove_segments:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '201':
+          description: Пользователь добавлен в сегмент
+  /segments/users/{user_id}:
+    get:
+      summary: Получить активные сегменты пользователя
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Список активных сегментов пользователя
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
