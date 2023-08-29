@@ -42,12 +42,12 @@ func (s *SegmentsPostgresStorage) GetAllSegments(conn *sql.DB) ([]byte, error) {
 		return nil, err
 	}
 
-	segmentsJSON, err := json.Marshal(allSegments)
+	allSegmentsJSON, err := json.Marshal(allSegments)
 	if err != nil {
 		return nil, err
 	}
 
-	return segmentsJSON, nil
+	return allSegmentsJSON, nil
 }
 
 func (s *SegmentsPostgresStorage) StoreSegment(segmentJSON []byte, conn *sql.DB) error {
@@ -56,8 +56,8 @@ func (s *SegmentsPostgresStorage) StoreSegment(segmentJSON []byte, conn *sql.DB)
 	if err != nil {
 		return err
 	}
-	_, err = conn.Exec(`INSERT INTO segments (title) SELECT $1 WHERE NOT EXISTS (SELECT * FROM segments WHERE title = $1::varchar(255))`, segment.Title)
 
+	_, err = conn.Exec(`INSERT INTO segments (title) SELECT $1 WHERE NOT EXISTS (SELECT * FROM segments WHERE title = $1::varchar(255))`, segment.Title)
 	if err != nil {
 		return err
 	}
@@ -70,6 +70,7 @@ func (s *SegmentsPostgresStorage) UpdateSegment(segmentJSON []byte, conn *sql.DB
 	if err != nil {
 		return err
 	}
+
 	_, err = conn.Exec(`UPDATE segments SET title = $2 WHERE id = $1`, segment.Id, segment.Title)
 	if err != nil {
 		return err
@@ -83,6 +84,7 @@ func (s *SegmentsPostgresStorage) DeleteSegment(segmentTitleJSON []byte, conn *s
 	if err != nil {
 		return err
 	}
+
 	_, err = conn.Exec(`DELETE FROM segments WHERE title = $1`, segment.Title)
 	if err != nil {
 		return err

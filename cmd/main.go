@@ -15,9 +15,7 @@ func main() {
 	/*
 			работа с пользователями
 		    Данные для примера:
-		    userName := "user"
-			userId = 1
-			var user = model.User{Id: userId, Name: userName}
+		    dataJSON := []byte(`{"user_id": 100 , "user_name": "Anton" }`)
 	*/
 	//segments := WorkWithSegments{Connect: &storage.SegmentsPostgresStorage{Db: db}}
 	/*
